@@ -1,16 +1,45 @@
+# Shivam AI - Codemagic Workflow for Android APK
 workflows:
   android-build:
     name: Android APK Build
     instance_type: mac_mini
+    max_build_duration: 60
     environment:
+      groups:
+        - api_keys                  # ← यही group तुमने Codemagic में बनाया था
       vars:
         EXPO_PUBLIC_GROQ_API_KEY: $EXPO_PUBLIC_GROQ_API_KEY
+    cache:
+      cache_paths:
+        - $HOME/.npm
+        - $HOME/.expo
+        - ./node_modules
     scripts:
       - name: Install dependencies
-        script: npm ci
-      - name: Build APK
         script: |
-          npx expo install expo-updates  # अगर जरूरी हो
-          npx eas build --platform android --profile preview --non-interactive
+          npm ci --prefer-offline
+
+      - name: Configure Expo
+        script: |
+          echo "✅ Setting up Expo"
+          npx expo install expo-updates --fix
+
+      - name: Build Android APK
+        script: |
+          echo "🚀 Starting EAS Build..."
+          npx eas build --platform android \
+                        --profile preview \
+                        --non-interactive \
+                        --local false
+
     artifacts:
       - build/**/*.apk
+      - $HOME/.eas/build/**/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com   # अपना ईमेल डाल दो (optional)
+        notify:
+          success: true
+          failure: true
