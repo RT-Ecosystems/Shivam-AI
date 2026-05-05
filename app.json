@@ -22,18 +22,7 @@
       "permissions": [],
       "softwareKeyboardLayoutMode": "pan"
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-font",
-        {
-          "fonts": []
-        }
-      ]
-    ],
-    "experiments": {
-      "typedRoutes": true
-    },
+    "plugins": ["expo-router"],
     "extra": {
       "eas": {
         "projectId": "com.rtecosystems.shivamai"
