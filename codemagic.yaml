@@ -1,4 +1,4 @@
-# Shivam AI - Codemagic Android Build (Fixed)
+# Shivam AI - Codemagic Android Build (Final Fixed)
 workflows:
   android-build:
     name: Android APK Build
@@ -15,13 +15,15 @@ workflows:
         - $HOME/.expo
         - ./node_modules
     scripts:
-      - name: Install dependencies
+      - name: Clean Cache & Install dependencies
         script: |
-          npm ci --legacy-peer-deps --prefer-offline
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
+          npm install --legacy-peer-deps --prefer-offline
 
-      - name: Install Expo Updates (if needed)
+      - name: Install Expo Tools
         script: |
-          npx expo install expo-updates
+          npx expo install expo-updates --fix
 
       - name: Build Android APK
         script: |
@@ -37,7 +39,7 @@ workflows:
     publishing:
       email:
         recipients:
-          - your-email@example.com   # अपना ईमेल डाल दो
+          - your-email@example.com
         notify:
           success: true
           failure: true
