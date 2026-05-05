@@ -1,0 +1,16 @@
+workflows:
+  android-build:
+    name: Android APK Build
+    instance_type: mac_mini
+    environment:
+      vars:
+        EXPO_PUBLIC_GROQ_API_KEY: $EXPO_PUBLIC_GROQ_API_KEY
+    scripts:
+      - name: Install dependencies
+        script: npm ci
+      - name: Build APK
+        script: |
+          npx expo install expo-updates  # अगर जरूरी हो
+          npx eas build --platform android --profile preview --non-interactive
+    artifacts:
+      - build/**/*.apk
