@@ -17,9 +17,10 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0a0a0f"
       },
-      "package": "com.shivam.ai",
+      "package": "com.rtecosystems.shivamai",
       "versionCode": 1,
-      "permissions": []
+      "permissions": [],
+      "softwareKeyboardLayoutMode": "pan"
     },
     "plugins": [
       "expo-router",
@@ -35,8 +36,14 @@
     },
     "extra": {
       "eas": {
-        "projectId": "shivam-ai-project"
+        "projectId": "com.rtecosystems.shivamai"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/com.rtecosystems.shivamai"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
