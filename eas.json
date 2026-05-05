@@ -1,0 +1,23 @@
+{
+  "cli": {
+    "version": ">= 8.0.0"
+  },
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk",
+        "env": {
+          "EXPO_PUBLIC_GROQ_API_KEY": "$GROQ_API_KEY"
+        }
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle",
+        "env": {
+          "EXPO_PUBLIC_GROQ_API_KEY": "$GROQ_API_KEY"
+        }
+      }
+    }
+  }
+}
