@@ -12,14 +12,14 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { Colors, MODELS } from '../../constants/Colors';
-import { Message, ModelKey } from '../../constants/types';
-import { useGroq } from '../../hooks/useGroq';
-import { useStorage } from '../../hooks/useStorage';
-import Header from '../../components/Header';
-import Sidebar from '../../components/Sidebar';
-import ChatMessage from '../../components/ChatMessage';
-import ModelPicker from '../../components/ModelPicker';
+import { Colors, MODELS } from '../constants/Colors';
+import { Message, ModelKey } from '../constants/types';
+import { useGroq } from '../hooks/useGroq';
+import { useStorage } from '../hooks/useStorage';
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
+import ChatMessage from '../components/ChatMessage';
+import ModelPicker from '../components/ModelPicker';
 
 export default function ChatScreen() {
   const [inputText, setInputText] = useState('');
@@ -409,3 +409,4 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
+      
