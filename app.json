@@ -4,35 +4,18 @@
     "slug": "shivam-ai",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "scheme": "shivam-ai",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0a0a0f"
-    },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#0a0a0f"
-      },
-      "package": "com.rtecosystems.shivamai",
+      "package": "com.shivam.ai",
       "versionCode": 1,
-      "permissions": [],
-      "softwareKeyboardLayoutMode": "pan"
+      "permissions": []
     },
-    "plugins": ["expo-router"],
-    "extra": {
-      "eas": {
-        "projectId": "com.rtecosystems.shivamai"
-      }
-    },
-    "updates": {
-      "url": "https://u.expo.dev/com.rtecosystems.shivamai"
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
     }
   }
 }
