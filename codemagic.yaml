@@ -20,29 +20,19 @@ workflows:
 
     scripts:
       - name: Install dependencies
-        script: |
-          npm install --legacy-peer-deps
+        script: npm install --legacy-peer-deps
 
-      - name: Expo Prebuild (Generate android folder)
-        script: |
-          npx expo prebuild --platform android --no-install --clean
-        env:
-          EXPO_PUBLIC_GROQ_API_KEY: $GROQ_API_KEY
+      - name: Expo Prebuild
+        script: EXPO_PUBLIC_GROQ_API_KEY=$GROQ_API_KEY npx expo prebuild --platform android --no-install --clean
 
       - name: Set API key in gradle
-        script: |
-          echo "EXPO_PUBLIC_GROQ_API_KEY=$GROQ_API_KEY" >> android/gradle.properties
+        script: echo "EXPO_PUBLIC_GROQ_API_KEY=$GROQ_API_KEY" >> android/gradle.properties
 
       - name: Make gradlew executable
-        script: |
-          chmod +x android/gradlew
+        script: chmod +x android/gradlew
 
       - name: Build APK
-        script: |
-          cd android
-          ./gradlew assembleRelease \
-            --no-daemon \
-            -Dorg.gradle.jvmargs="-Xmx4g"
+        script: cd android && ./gradlew assembleRelease --no-daemon -Dorg.gradle.jvmargs="-Xmx4g"
 
     artifacts:
       - android/app/build/outputs/apk/release/app-release.apk
@@ -54,4 +44,3 @@ workflows:
         notify:
           success: true
           failure: true
-          
