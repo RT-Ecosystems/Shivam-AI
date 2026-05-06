@@ -1,40 +1,51 @@
-# Shivam AI - Codemagic Android Build (Final Fixed)
 workflows:
   android-build:
-    name: Android APK Build
+    name: Shivam AI - Android APK
     instance_type: mac_mini_m2
     max_build_duration: 60
+
     environment:
       groups:
         - api_keys
       vars:
-        EXPO_PUBLIC_GROQ_API_KEY: $EXPO_PUBLIC_GROQ_API_KEY
+        EXPO_PUBLIC_GROQ_API_KEY: $GROQ_API_KEY
+      node: 20.0.0
+      java: 17
+
     cache:
       cache_paths:
         - $HOME/.npm
-        - $HOME/.expo
+        - $HOME/.gradle/caches
         - ./node_modules
+
     scripts:
-      - name: Clean Cache & Install dependencies
+      - name: Install dependencies
         script: |
-          rm -rf node_modules package-lock.json
-          npm cache clean --force
-          npm install --legacy-peer-deps --prefer-offline
+          npm install --legacy-peer-deps
 
-      - name: Install Expo Tools
+      - name: Expo Prebuild (Generate android folder)
         script: |
-          npx expo install expo-updates --fix
+          npx expo prebuild --platform android --no-install --clean
+        env:
+          EXPO_PUBLIC_GROQ_API_KEY: $GROQ_API_KEY
 
-      - name: Build Android APK
+      - name: Set API key in gradle
         script: |
-          echo "🚀 Starting EAS Build..."
-          npx eas build --platform android \
-                        --profile preview \
-                        --non-interactive
+          echo "EXPO_PUBLIC_GROQ_API_KEY=$GROQ_API_KEY" >> android/gradle.properties
+
+      - name: Make gradlew executable
+        script: |
+          chmod +x android/gradlew
+
+      - name: Build APK
+        script: |
+          cd android
+          ./gradlew assembleRelease \
+            --no-daemon \
+            -Dorg.gradle.jvmargs="-Xmx4g"
 
     artifacts:
-      - build/**/*.apk
-      - $HOME/.eas/build/**/*.apk
+      - android/app/build/outputs/apk/release/app-release.apk
 
     publishing:
       email:
